@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: failing-readiness-pod
+spec:
+  containers:
+    - name: bad-container
+      image: nginx
+      readinessProbe:
+        exec:
+          command:
+            - /bin/sh
+            - -c
+            - "exit 1"  # This ensures the readiness probe always fails
+        initialDelaySeconds: 5
+        periodSeconds: 5
